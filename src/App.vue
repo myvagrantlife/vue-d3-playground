@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Dots</router-link>
+      <router-link to="/graph">Graph</router-link>
       <router-link to="/arc">Arc</router-link>
       <router-link to="/pie">Pie</router-link>
     </div>
