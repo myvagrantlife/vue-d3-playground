@@ -27,8 +27,9 @@ body {
 }
 
 #nav {
-  height: 10vh;
+  height: 5vh;
   padding: 30px;
+  border-bottom:1px solid #ececec;
 
   a {
     font-weight: bold;
@@ -42,11 +43,11 @@ body {
 }
 
 #wrapper {
-  height: 90vh;
+  height: 95vh;
 }
 
 svg {
-  overflow: visible;
+  overflow: hidden;
 }
 
 .value-slider {
