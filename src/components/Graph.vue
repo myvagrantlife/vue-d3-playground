@@ -1,43 +1,73 @@
 <template>
-  <svg>
-    <path stroke="#90b1c5" fill="none" stroke-width="5" :d="d" />
-    <circle
-      r="10"
-      v-for="(item, index) in dataset"
-      :cx="item.shape.cx"
-      :cy="item.shape.cy"
-      :key="index"
-      :fill="index === 0 ? '#5184a2': '#000000'"
-      @click="onClick(item)"
-    />
+  <svg ref="svg">
+    <!-- <switch>
+      <g requiredFeatures="http://www.w3.org/Graphics/SVG/feature/1.2/#TextFlow">
+        <textArea width="200" height="auto">Text goes here</textArea>
+      </g>
+      <foreignObject
+        width="200"
+        height="200"
+        requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+      >
+        <p xmlns="http://www.w3.org/1999/xhtml">Text goes here</p>
+      </foreignObject>
+      <text x="20" y="20">No automatic linewrapping.</text>
+    </switch>-->
+    <Segment v-for="(item, index) in dataset" :item="item" :key="index" />
   </svg>
 </template>
 
 <script>
 import * as d3 from "d3";
 import _ from "lodash";
+import Segment from "@/components/Segment.vue";
+
 import dataset from "@/data/graph.json";
 
 export default {
   data() {
-    return {
-      boundingBox: {
-        x: 0,
-        y: 0,
-        width: 400,
-        height: 300,
-        top: 0,
-        bottom: 300,
-        left: 0,
-        right: 400
+    let boundingBox = {
+      x: 50,
+      y: 50,
+      width: 400,
+      height: 300,
+      get top() {
+        return this.y;
       },
+      get left() {
+        return this.x;
+      },
+      get right() {
+        return this.x + this.width;
+      },
+      get bottom() {
+        return this.y + this.height;
+      }
+    };
+    return {
+      boundingBox,
       rawDataset: dataset
     };
+  },
+  created() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  mounted() {
+    this.handleResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     onClick(item) {
       console.log("this is the item!", item);
       this.dataset = _.shuffle(this.dataset);
+    },
+    handleResize(event) {
+      this.boundingBox.x = 50;
+      this.boundingBox.y = 50;
+      this.boundingBox.width = this.$refs.svg.clientWidth - 100;
+      this.boundingBox.height = this.$refs.svg.clientHeight - 100;
     },
     processRawDataset(data) {
       let dt = data.filter(item => !!item.type);
@@ -75,6 +105,9 @@ export default {
       return arc;
     }
   },
+  components: {
+    Segment
+  },
   computed: {
     dataset() {
       return this.processRawDataset(this.rawDataset, this.boundingBox);
@@ -97,6 +130,11 @@ export default {
 path,
 circle {
   transition: all 500ms ease;
+}
+
+svg {
+  width: 100vw;
+  height: 90vh;
 }
 
 circle:hover {
