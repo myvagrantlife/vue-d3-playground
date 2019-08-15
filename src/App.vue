@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Dots</router-link>
       <router-link to="/graph">Graph</router-link>
+      <router-link to="/cyto">Cyto</router-link>
       <router-link to="/arc">Arc</router-link>
       <router-link to="/pie">Pie</router-link>
     </div>
@@ -29,7 +30,7 @@ body {
 #nav {
   height: 5vh;
   padding: 30px;
-  border-bottom:1px solid #ececec;
+  border-bottom: 1px solid #ececec;
 
   a {
     font-weight: bold;

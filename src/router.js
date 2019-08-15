@@ -19,6 +19,11 @@ export default new Router({
       component: () => import("./views/Graph.vue")
     },
     {
+      path: "/cyto",
+      name: "cyto",
+      component: () => import("./views/Cyto.vue")
+    },
+    {
       path: "/arc",
       name: "arc",
       component: () => import("./views/Arc.vue")
