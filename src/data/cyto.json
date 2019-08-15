@@ -4,14 +4,82 @@
   "userPanningEnabled": true,
   "wheelSensitivity": 0.35,
   "layout": {
-    "name": "cola"
+    "name": "cola",
+    "infinite": true,
+    "fit": true,
+    "padding": 30,
+    "nodeDimensionsIncludeLabels": true
   },
   "style": [
     {
+      "selector": "*",
+      "css": {
+        "font-family": "Lato",
+        "font-size": "12pt"
+      }
+    },
+    {
       "selector": "node",
       "css": {
-        "opacity": 0.2,
-        "background-color": "#f9241144"
+        "color": "#fefefe",
+        "shape": "circle",
+        "border-color": "#DAE4EA",
+        "border-width": 2,
+        "label": "data(label)",
+        "width": 100,
+        "height": 100,
+        "padding": 10,
+        "text-wrap": "wrap",
+        "text-max-width": 90,
+        "text-halign": "center",
+        "text-valign": "center"
+      }
+    },
+    {
+      "selector": "node.segment",
+      "css": {
+        "background-color": "#fefefe",
+        "border-color": "#DAE4EA",
+        "color": "#28404D",
+        "shape": "round-rectangle",
+        "label": "data(label)",
+        "width": "label",
+        "height": "label",
+        "padding": 20,
+        "text-wrap": "wrap",
+        "text-max-width": "4em",
+        "text-halign": "center",
+        "text-valign": "center"
+      }
+    },
+    {
+      "selector": "node.assumption",
+      "css": {
+        "background-color": "#F3BE8C"
+      }
+    },
+    {
+      "selector": "node.hypothesis",
+      "css": {
+        "background-color": "#F2B6B5"
+      }
+    },
+    {
+      "selector": "node.experiment",
+      "css": {
+        "background-color": "#AADEF6"
+      }
+    },
+    {
+      "selector": "node.learning",
+      "css": {
+        "background-color": "#B0E5DD"
+      }
+    },
+    {
+      "selector": "node.task",
+      "css": {
+        "background-color": "#B8B5F7"
       }
     },
     {

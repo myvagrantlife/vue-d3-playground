@@ -15,3 +15,12 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+.cyto {
+  width: 100%;
+  height: 100%;
+}
+</style>
+

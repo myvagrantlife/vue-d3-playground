@@ -1,0 +1,53 @@
+{
+  "problem": {
+    "title": "Problem",
+    "headline": "List your top 1-3 problems.",
+    "sub": "Existing Alternatives",
+    "subHeadline": "List how these problems are solved today.",
+    "slug": "problem"
+  },
+  "solution": {
+    "title": "Solution",
+    "headline": "Outline a possible solution for each problem.",
+    "slug": "solution"
+  },
+  "keyMetrics": {
+    "title": "Key Metrics",
+    "headline": "List the key numbers that tell you how your business is doing.",
+    "slug": "key-metrics"
+  },
+  "uniqueValueProposition": {
+    "title": "Unique Value Proposition",
+    "headline": "Single, clear, compelling message that states why you are different and worth paying attention.",
+    "sub": "High-level Concept",
+    "subHeadline": "List your X for Y analogy e.g. YouTube = Flickr for videos",
+    "slug": "unique-value-proposition"
+  },
+  "unfairAdvantage": {
+    "title": "Unfair Advantage",
+    "headline": "Something that cannot easily be bought or copied.",
+    "slug": "unfair-advantage"
+  },
+  "channels": {
+    "title": "Channel",
+    "headline": "List your path to customers (inbound or outbound).",
+    "slug": "channels"
+  },
+  "customerSegments": {
+    "title": "Customer Segments",
+    "headline": "List you target customers and users.",
+    "sub": "Early Adopters",
+    "subHeadline": "List the characteristics of you ideal customers.",
+    "slug": "customer-segments"
+  },
+  "costStructure": {
+    "title": "Cost Structure",
+    "headline": "List your fixed and variable costs.",
+    "slug": "cost-structure"
+  },
+  "revenueStreams": {
+    "title": "Revenue Streams",
+    "headline": "List your sources of revenue.",
+    "slug": "revenue-streams"
+  }
+}
