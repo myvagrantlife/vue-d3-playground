@@ -151,7 +151,10 @@ export default {
         event.stopPropagation();
         event.preventDefault();
       } else if (event.key === "l" && (event.metaKey || event.ctrlKey)) {
-        this.cy.layout();
+        let layout = this.cy.layout({
+          ...config.layout
+        });
+        layout.run();
         event.stopPropagation();
         event.preventDefault();
       }
