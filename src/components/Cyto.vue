@@ -37,20 +37,120 @@ const segments = Object.values(bmc).map(({ slug, title, headline }) => ({
   classes: ["segment", "defaultLabel"]
 }));
 
-config.style = config.style.map(style => {
-  if (
-    style.css &&
-    !style.css["border-color"] &&
-    style.css["background-color"]
-  ) {
-    // make the border color a slightly darker version of background-color
-    style.css["border-color"] = chroma(style.css["background-color"])
-      .darken(0.3)
-      .hex();
-  }
+function cytoStyle(tmpl, ...args) {
+  console.log(args);
+  let out = [];
 
-  return style;
-});
+  for (let i = 0; i < tmpl.length - 1; i += 1) {
+    out.push(tmpl[i]);
+    const arg = args[i];
+    if (typeof arg === "string") out.push(arg);
+    else if (typeof arg === "function")
+      out.push(arg({ style: { borderWidth: 2 } }));
+    else if ("toString" in Object.keys(arg)) out.push(arg.toString());
+    else out.push(`${arg}`);
+  }
+  out.push(tmpl[tmpl.length - 1]);
+  const str = out.join("");
+  console.log(str);
+  return str;
+}
+
+const font = "Lato";
+
+const style = cytoStyle`
+    * {
+        font-family: "Lato";
+        font-size: 10;
+    }
+
+    node {
+        color: #fefefe;
+        shape: ellipse;
+        border-color: #DAE4EA;
+        border-width: 2;
+        width: 100;
+        height: 100;
+        padding: 5;
+        text-wrap: wrap;
+        text-max-width: 90;
+        text-halign: center;
+        text-valign: center;
+    }
+
+    .faded {
+        background-opacity: 0.4;
+    }
+
+    node.eh-handle {
+        width: 10;
+        height: 10;
+    }
+
+    node.eh-hover {
+        border-width: 5;
+    }
+
+    node.segment {
+        background-color: #fefefe;
+        border-color: ${chroma("#fefefe")
+          .darken(0.2)
+          .hex()};
+        color: #28404D;
+        shape: round-rectangle;
+        label: data(label);
+        width: label;
+        height: label;
+        padding: 20;
+        text-wrap: wrap;
+        text-max-width: 4em;
+        text-halign: center;
+        text-valign: center;
+    }
+
+    node.defaultLabel {
+        label: data(label);
+    }
+
+    node.assumption {
+        background-color: #F3BE8C;
+        border-color: ${chroma("#F3BE8C")
+          .darken(0.2)
+          .hex()};
+    }
+
+    node.hypothesis {
+        background-color: #F2B6B5;
+        border-color: ${chroma("#F2B6B5")
+          .darken(0.2)
+          .hex()};
+    }
+
+    node.experiment {
+        background-color: #AADEF6;
+        border-color: ${chroma("#AADEF6")
+          .darken(0.2)
+          .hex()};
+    }
+
+    node.learning {
+        background-color: #B0E5DD;
+        border-color: ${chroma("#B0E5DD")
+          .darken(0.2)
+          .hex()};
+    }
+
+    node.task {
+        background-color: #B8B5F7;
+        border-color: ${chroma("#B8B5F7")
+          .darken(0.2)
+          .hex()};
+    }
+
+    edge {
+        line-color: #888888;
+    }
+`;
 
 let boundingBox = {
   x: 50,
@@ -118,6 +218,7 @@ export default {
     return {
       config: {
         ...config,
+        style: style,
         elements: {
           nodes: [...assumptions, ...processRawDataset(segments, boundingBox)],
           edges: []
@@ -197,7 +298,7 @@ export default {
     },
     afterCreated(cy) {
       // cy: this is the cytoscape instance
-
+      cy.style(style);
       //   cy.nodeHtmlLabel([
       //     {
       //       query: ".segment", // cytoscape query selector
