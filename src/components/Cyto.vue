@@ -19,6 +19,8 @@ import bmc from "../data/bmc.json";
 import nodeHtmlLabel from "cytoscape-node-html-label";
 import viewUtilities from "cytoscape-view-utilities";
 import undoRedo from "cytoscape-undo-redo";
+import dblclick from "cytoscape-dblclick";
+
 import cxtmenu from "cytoscape-cxtmenu";
 import edgehandles from "cytoscape-edgehandles";
 
@@ -166,6 +168,15 @@ export default {
         // TODO: remove hover style for UX
       }
     },
+    doubleClick(evt) {
+      console.log("dblclick");
+      this.cy.animate({
+        fit: {
+          eles: evt.target,
+          padding: 10
+        }
+      });
+    },
     preConfig(cytoscape) {
       // cytoscape: this is the cytoscape constructor
       try {
@@ -173,6 +184,7 @@ export default {
         undoRedo(cytoscape);
         cytoscape.use(edgehandles);
         cytoscape.use(cxtmenu);
+        cytoscape.use(dblclick);
         // viewUtilities(cytoscape);
       } catch (err) {
         console.warn(err);
@@ -205,6 +217,10 @@ export default {
       var ur = cy.undoRedo({
         debug: true
       });
+
+      cy.dblclick();
+      cy.on("dblclick", this.doubleClick);
+
       var ctxmenu = cy.cxtmenu({
         commands: [
           {
@@ -224,7 +240,7 @@ export default {
                 let { position } = event;
                 eh.hide();
                 eh.disable();
-                // ...
+                cy.off("ehcomplete", completeHandler);
               };
               cy.on("ehcomplete", completeHandler);
             },
